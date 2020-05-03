@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
-import Auxi from './hoc/Aux';
+import Aux from './hoc/Aux';
 
 class BurgerBuilder extends Component{
     render(){
+
+        state={
+            ingredients:{
+                salad:1,
+                cheese:2,
+                bacon:1,
+                meat:1
+            }
+        }
+
         return(
-            <Auxi>
+            <Aux>
                 <div>Burger</div>
                 <div>Burger Tools</div>
-            </Auxi>
+            </Aux>
         );
     }
 }
