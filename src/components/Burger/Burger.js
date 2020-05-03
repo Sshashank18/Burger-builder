@@ -17,7 +17,7 @@ const Burger = (props)=>{
             },[]);  //this is the initial value passed
     
     if(transformedIngredients.length===0){
-        transformedIngredients=<p>Add ingredients!!</p>
+        transformedIngredients=<p>Please Add some ingredients!!</p>
     }
 
     return(
