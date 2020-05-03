@@ -1,35 +1,42 @@
 import React from 'react';
-import classes from './BurgerIngredients.css';
+import PropTypes from 'prop-types';
+import classes from './BurgerIngredients.module.css';
 
-const burgerIngredients=(props)=>{
-    let ingredients=null;
+const burgerIngredients = (props) =>{
+    let ingredient = null;
 
     switch(props.type){
         case('bread-bottom'):
-            ingredients=<div className={classes.bread-bottom}></div>
+            ingredient=<div className={classes.BreadBottom}></div>;
             break;
         case('bread-top'):
-            ingredients=(<div className={classes.bread-top}>
-                    <div className={classes.seeds1}></div>
-                    <div className={classes.seeds2}></div>
-                </div>);
-            break;
-        case('salad'):
-            ingredients=<div className={classes.salad}></div>
+            ingredient=(
+                <div className={classes.BreadTop}>
+                    <div className={classes.Seeds1}></div>
+                    <div className={classes.Seeds2}></div>
+                </div>
+            );
             break;
         case('meat'):
-            ingredients=<div className={classes.meat}></div>
+            ingredient=<div className={classes.Meat}></div>;
             break;
         case('cheese'):
-            ingredients=<div className={classes.cheese}></div>
+            ingredient=<div className={classes.Cheese}></div>;
             break;
         case('bacon'):
-            ingredients=<div className={classes.bacon}></div>
+            ingredient=<div className={classes.Bacon}></div>;
             break;
+        case('salad'):
+            ingredient=<div className={classes.Salad}></div>;
+            break;       
         default:
-            ingredients=null;
+            ingredient=null;         
     }
-    return ingredients;
+    return ingredient;
 }
+
+burgerIngredients.propTypes={
+    type:PropTypes.string.isRequired
+};
 
 export default burgerIngredients;
