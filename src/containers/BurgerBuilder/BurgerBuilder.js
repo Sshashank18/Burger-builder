@@ -4,6 +4,7 @@ import BurgerControls from '../../components/Burger/BuildControls/BuildControls'
 import Aux from '../../hoc/Auxi/Auxi';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import axios from '../../axios-order';
 
 const INGREDIENT_PRICES = {           //Set global bcz it will not be changed
     cheese:0.5, 
@@ -77,7 +78,25 @@ class BurgerBuilder extends Component{
     }
 
     purchaseContinueHandler = ()=>{
-        alert('You Continue !!');
+        // alert('You Continue !!');
+        //.json is added at the end for the firebase to work correctly
+        const order={
+            ingredients:this.state.ingredients,
+            price:this.state.totalPrice,
+            customer:{
+                name:'Shashank',
+                address:{
+                    street:'Bahal street',
+                    zipcode:'110032',
+                    country:'India'
+                },
+                email:'test@test.com'
+            },
+            delieveryMethod:'fastest'
+        }
+        axios.post('/orders.json',order)
+            .then(response=>console.log(response))
+            .catch(error=>console.log(error));
     }
 
     render(){
