@@ -29,12 +29,11 @@ class Checkout extends Component{
                 return ingredients[element.split("=")[0]] = Number(element.split("=")[1]);
             }
         });
-        console.log(ingredients);
 
         // for (let params of query.entries()) {
         //     ingredients[params[0]] = +params[1];
         // }
-        this.setState({ingredients:ingredients , totalPrice:price});
+        this.setState({ingredients:ingredients,totalPrice:price});
     }
 
     checkoutCancelledHandler = () => {

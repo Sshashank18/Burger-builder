@@ -16,6 +16,8 @@ class ContactData extends Component{
         loading:false
     }
 
+    
+
     orderHandler = (event)=>{
         event.preventDefault();
          //.json is added at the end for the firebase to work correctly
@@ -24,7 +26,7 @@ class ContactData extends Component{
 
         const order={
             ingredients:this.props.ingredients,
-            price:this.props.totalPrice,
+            price:this.props.price,
             customer:{
                 name:'Shashank',
                 address:{
@@ -46,6 +48,7 @@ class ContactData extends Component{
             });
     }
 
+    
     render(){
         let form=(<form>
             <input className={classes.Input} type="text" name="name" placeholder="Your Name" />
