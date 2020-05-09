@@ -1,7 +1,7 @@
 import React from 'react'; //React imported to return JSX code
 import classes from './Burger.module.css';
 import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
-
+import {withRouter} from 'react-router-dom';
 
 const Burger = (props)=>{
 
@@ -29,4 +29,4 @@ const Burger = (props)=>{
     );
 }
 
-export default Burger;
+export default withRouter(Burger);      //withRouter added to get the functionality of special props like history ,match also in this props
