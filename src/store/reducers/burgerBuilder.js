@@ -1,13 +1,9 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    ingredients: {
-        cheese:0,
-        salad:0,
-        bacon:0,
-        meat:0
-    },
+    ingredients: null,
     totalPrice: 4,
+    error:false
 };
 
 const INGREDIENT_PRICES = {           //Set global bcz it will not be changed
@@ -37,6 +33,23 @@ const reducer = (state = initialState, actions) => {
                 },
                 totalPrice: state.totalPrice - INGREDIENT_PRICES[actions.ingredientName] 
             };
+        case actionTypes.SET_INGREDIENTS:
+            return{
+                ...state,
+                ingredients: {                                      //Doing this way because to order the ingredients in the same order as given here
+                    salad: actions.ingredients.salad,
+                    bacon: actions.ingredients.bacon,
+                    cheese: actions.ingredients.cheese,
+                    meat: actions.ingredients.meat
+                },
+                totalPrice:4,
+                error: false
+            };
+        case actionTypes.FETCH_INGREDIENTS_FAILED:
+            return{
+                ...state,
+                error: true
+            }
         default:
             return state;
     }
