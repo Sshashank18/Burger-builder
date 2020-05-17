@@ -4,7 +4,8 @@ import {updateObject} from '../utility';
 const initialState = {
     ingredients: null,
     totalPrice: 4,
-    error:false
+    error:false,
+    building:false
 };
 
 const INGREDIENT_PRICES = {           //Set global bcz it will not be changed
@@ -21,7 +22,8 @@ const reducer = (state = initialState, actions) => {
             const updatedIngredients = updateObject(state.ingredients,updatedIngredient);
             const updatedState = {
                 ingredients: updatedIngredients,
-                totalPrice:state.totalPrice + INGREDIENT_PRICES[actions.ingredientName] 
+                totalPrice:state.totalPrice + INGREDIENT_PRICES[actions.ingredientName] ,
+                building: true
             }
             return updateObject(state,updatedState);
         case actionTypes.REMOVE_INGREDIENT:
@@ -31,7 +33,8 @@ const reducer = (state = initialState, actions) => {
                     ...state.ingredients,
                     [actions.ingredientName]:state.ingredients[actions.ingredientName] - 1
                 },
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[actions.ingredientName] 
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[actions.ingredientName] ,
+                building: true
             };
         case actionTypes.SET_INGREDIENTS:
             return{
@@ -43,7 +46,8 @@ const reducer = (state = initialState, actions) => {
                     meat: actions.ingredients.meat
                 },
                 totalPrice:4,
-                error: false
+                error: false,
+                building: false
             };
         case actionTypes.FETCH_INGREDIENTS_FAILED:
             return{
