@@ -3,7 +3,6 @@ import Burger from '../../Burger/Burger';
 import Button from '../../UI/Button/Button';
 import classes from './CheckoutSummary.module.css';
 
-
 const checkoutSummary = (props)=>{
     return(
         <div className={classes.CheckoutSummary}>
