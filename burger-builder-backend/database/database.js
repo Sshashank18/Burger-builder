@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 
-const database = new Sequelize("burgerBuilder","admin","admin123",{
+const {DATABASE_USERNAME, DATABASE_PASSWORD } = require('../environments');
+
+const database = new Sequelize("burgerBuilder", DATABASE_USERNAME ,DATABASE_PASSWORD ,{
     host: 'localhost',
     dialect: 'mysql',
     logging:false
