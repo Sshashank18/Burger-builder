@@ -31,6 +31,7 @@ export const purchaseBurger = (orderData, token) => {
             headers:{Authorization: `JWT ${token}`}
         })
         .then(response=>{
+            console.log(response);
             dispatch(purchaseBurgerSuccess(response.data.name, orderData));
         })
         .catch(error=>{

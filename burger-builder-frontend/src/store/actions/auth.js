@@ -50,7 +50,6 @@ export const auth = (email,password,isSignup) => {
             url="http://127.0.0.1:5500/api/auth/login";
             axios.post(url, authData)
             .then((response) => {
-                console.log(response.data);
                 // const expirationDate = new Date(new Date().getTime() + response.data.user.expirationTime * 1000);
                 localStorage.setItem('token', response.data.token);
                 // localStorage.setItem('expirationDate', expirationDate);
@@ -60,13 +59,12 @@ export const auth = (email,password,isSignup) => {
                 // dispatch(checkAuthTimeout(expirationDate));
             })
             .catch(err => {
-                console.log(err);
-                dispatch(authFail(err));
+                dispatch(authFail(err.response.data.message));
             });
         }else{
             axios.post(url, authData)
             .then((response) => {
-                console.log(response.data);
+                console.log(response);
                 // const expirationDate = new Date(new Date().getTime() + response.data.user.expirationTime * 1000);
                 localStorage.setItem('token', response.data.token);
                 // localStorage.setItem('expirationDate', expirationDate);
@@ -77,7 +75,7 @@ export const auth = (email,password,isSignup) => {
             })
             .catch(err => {
                 console.log(err);
-                dispatch(authFail(err));
+                dispatch(authFail(err.response.data.message));
             });
         }
        
