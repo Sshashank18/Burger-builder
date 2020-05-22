@@ -12,7 +12,9 @@ router.get('/', (req,res,next)=>{
 
 router.get('/getOrders', (req,res,next)=>{
     databaseHandler.getOrders(req.user.id)
-        .then(orders => res.send(orders))
+        .then(orders => {
+            res.send(orders)
+        })
         .catch(err => console.log(err));
 });
 
@@ -21,22 +23,6 @@ router.post('/addOrder',(req,res,next) => {
 
     databaseHandler.addOrder(req.user.id, req.body.ingredients, req.body.price, new Date(), orderData)
         .then(response => {
-            const data = {
-                from: 'shashankaggarwal13@gmail.com',
-                to: orderData.email,
-                subject: 'test',
-                text: ` Hi There,
-                        You Placed an order of
-                            Salad: ${req.body.ingredients.salad}
-                            Cheese: ${req.body.ingredients.cheese}
-                            Bacon: ${req.body.ingredients.bacon}
-                            Meat: ${req.body.ingredients.meat}
-                        and Your Total Is: ${req.body.price}`
-            };
-            mailgun.messages().send(data, function(err, body){
-                res.sendStatus(200);
-            });
-
             let transporter = nodemailer.createTransport({
                 host: 'smtp.ethereal.email',
                 port: 587,
@@ -59,19 +45,21 @@ router.post('/addOrder',(req,res,next) => {
                         and Your Total Is: ${req.body.price}`
             };
             
-            transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.log(error);
-                } else {
-                    res.sendStatus(200);
-                }
+            // transporter.sendMail(mailOptions, function(error, info){
+            //     if (error) {
+            //         console.log(error);
+            //     } else {
+            //         res.sendStatus(200);
+            //     }
+
+            res.status(200);
         })
         .catch(err => {
             console.log(err);
             res.sendStatus(400);
         });
-        
-});
+    });
+// });
 
 module.exports = {
     router

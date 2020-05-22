@@ -14,9 +14,17 @@ router.get('/',(req,res,next)=>{
 
 router.post('/signup', (req,res,next) => {
     bcrypt.hash(req.body.password, 10, function(err,password){
-        console.log(password);
         databaseHandler.addUser(req.body.email, password)
-        .then(user => res.status(200).send(user))
+        .then(user => {
+            const expirationTime = ((new Date()).getTime()) + (60 * 60 * 1000);  //Test for 3600s
+
+            const token = jwt.sign({
+                data: user,
+                exp: expirationTime
+            }, TOKEN_SECRET_KEY);
+
+            return res.json({user,userId:user.id,token});
+        })
         .catch(err => {
             res.status(400).json({
                 message: "Email already Exists"
@@ -66,5 +74,3 @@ router.get('/logout', (req,res,next) => {
 module.exports = {
     router
 }
-
-

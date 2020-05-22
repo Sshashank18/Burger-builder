@@ -43,7 +43,7 @@ const addOrder = (userId, ingredientsObject, price, date, orderData) => {
             salad: ingredientsObject.salad,
             bacon: ingredientsObject.bacon,
             meat: ingredientsObject.meat,
-            cheese: ingredientsObjectcheese,
+            cheese: ingredientsObject.cheese,
             orderId: order.id
         });
     });

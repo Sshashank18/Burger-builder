@@ -4,7 +4,6 @@ import BurgerIngredients from './BurgerIngredients/BurgerIngredients';
 import {withRouter} from 'react-router-dom';
 
 const Burger = (props)=>{
-
     let transformedIngredients = Object.keys(props.ingredients)   //Object function will convert ingredients object into array of its keys i.e. cheese,salod,etc.,etc.
             .map(igKey=>{
                 return [...Array(props.ingredients[igKey])].map((_,i)=>{          //here _ shows that element name is blank as not used and i is index

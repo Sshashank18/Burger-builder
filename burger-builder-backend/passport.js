@@ -32,9 +32,11 @@ passport.use('jwt',new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
     secretOrKey: TOKEN_SECRET_KEY
     },(jwtPayload, done) => {
-    return Users.findOne({
-        where: jwtPayload.id
-    })
+        return Users.findOne({
+            where: {
+                id: jwtPayload.data.id
+            }
+        })
         .then(user => done(null, user))
         .catch(err => done(err));
 }));

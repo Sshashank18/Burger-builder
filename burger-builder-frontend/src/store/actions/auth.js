@@ -42,24 +42,45 @@ export const auth = (email,password,isSignup) => {
             returnSecureToken: true
         }
 
-        let url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
+        // let url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
+        let url = 'http://127.0.0.1:5500/api/auth/signup';
+        
         if(!isSignup){
-            url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
-        }
-
-        axios.post(url,authData)
-            .then((response)=>{
-                const expirationDate = new Date(new Date().getTime() + response.data.expiresIn * 1000);
-                localStorage.setItem('token', response.data.idToken);
-                localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', response.data.localId);
-                dispatch(authSuccess(response.data.idToken,response.data.localId));
-                dispatch(checkAuthTimeout(response.data.expiresIn));
+            // url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
+            url="http://127.0.0.1:5500/api/auth/login";
+            axios.post(url, authData)
+            .then((response) => {
+                console.log(response.data);
+                // const expirationDate = new Date(new Date().getTime() + response.data.user.expirationTime * 1000);
+                localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('expirationDate', expirationDate);
+                localStorage.setItem('userId', response.data.id);
+                dispatch(authSuccess(response.data.token, response.data.user.userId));
+                // console.log(new Date(expirationDate));
+                // dispatch(checkAuthTimeout(expirationDate));
             })
-            .catch( err => {
+            .catch(err => {
                 console.log(err);
-                dispatch(authFail(err.response.data.error));
+                dispatch(authFail(err));
+            });
+        }else{
+            axios.post(url, authData)
+            .then((response) => {
+                console.log(response.data);
+                // const expirationDate = new Date(new Date().getTime() + response.data.user.expirationTime * 1000);
+                localStorage.setItem('token', response.data.token);
+                // localStorage.setItem('expirationDate', expirationDate);
+                localStorage.setItem('userId', response.data.id);
+                dispatch(authSuccess(response.data.token, response.data.userId));
+                // console.log(new Date(expirationDate));
+                // dispatch(checkAuthTimeout(expirationDate));
             })
+            .catch(err => {
+                console.log(err);
+                dispatch(authFail(err));
+            });
+        }
+       
     };
 };
 
@@ -82,22 +103,22 @@ export const authCheckStatus = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
         if(!token){
-             dispatch(logout());
+            dispatch(logout());
         }else{
-            const expirationDate = new Date(localStorage.getItem('expirationDate'));
-            if(expirationDate <= new Date()){
-                dispatch(logout());
-            }else{
+            // const expirationDate = new Date(localStorage.getItem('expirationDate'));
+            // if(expirationDate <= new Date()){
+                // dispatch(logout());
+            // }else{
                 const userId = localStorage.getItem('userId');
                 dispatch(authSuccess(token, userId));
                 // dispatch(checkAuthTimeout((expirationDate.getSeconds() - new Date().getSeconds()))/1000);
 
-                const expirationTime = (expirationDate.getSeconds() - new Date().getSeconds())/1000;
+                // const expirationTime = (expirationDate.getSeconds() - new Date().getSeconds())/1000;
 
-                setTimeout(() => {
-                    dispatch(logout());
-                }, expirationTime * 5000);
+                // setTimeout(() => {
+                //     dispatch(logout());
+                // }, expirationTime * 5000);
             }
         }
     }
-}
+// }

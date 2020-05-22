@@ -4,7 +4,8 @@ const {DATABASE_USERNAME, DATABASE_PASSWORD } = require('../environments');
 
 const database = new Sequelize("burgerBuilder", DATABASE_USERNAME ,DATABASE_PASSWORD ,{
     host: 'localhost',
-    dialect: 'mysql',
+    dialect: 'sqlite',
+    storage:'burgers.db',
     logging:false
 });
 
@@ -94,11 +95,12 @@ const Ingredients = database.define('ingredients',{
     }
 });
 
-Orders.belongTo(Users);
+Orders.belongsTo(Users);
 Users.hasMany(Orders);
 
-Ingredients.belongTo(Orders);
+Ingredients.belongsTo(Orders);
 Orders.hasOne(Ingredients);
+
 
 module.exports = {
     database,

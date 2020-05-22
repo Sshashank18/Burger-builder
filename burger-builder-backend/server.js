@@ -3,7 +3,9 @@ const cors = require('cors');
 
 const {database} = require('./database/database');
 const router = require('./api/index').router;
-const passport = require('./passport');
+
+var passport = require('passport');
+require('./passport');
 
 const app = express();
 
