@@ -23,14 +23,14 @@ router.post('/signup', (req,res,next) => {
                         exp: expirationTime
                     }, TOKEN_SECRET_KEY);
 
-                    res.status(200).send({ user, userId: user.id, token });
+                    res.status(201).send({ user, userId: user.id, token });
               
                 })
                 .catch(err => {
-                    // res.status(400).json({
-                    //     message: "Email already Exists"
-                    // });
-                    res.send(err);
+                    res.status(400).json({
+                        message: "Email already Exists"
+                    });
+
                 });
         });
 });

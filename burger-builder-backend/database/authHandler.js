@@ -7,8 +7,7 @@ const addUser = (email, password) => {
         email,
         password
     })
-    .then(user => user)
-    .catch(err => err);
+
 }
 
 const getUser = (email, password) => {

@@ -1,7 +1,11 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL:'https://react-my-burger-builder-13255.firebaseio.com/',
+    baseURL:'https://burger-builder-back-end.herokuapp.com/api',
+    // baseURL: 'http://localhost:5500/api'
 });
 
-export default instance;
+
+instance.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+
+export default instance

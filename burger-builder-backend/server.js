@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 
+const {DOMAIN} = require('./environments');
+
 const {database} = require('./database/database');
 const router = require('./api/index').router;
 
@@ -17,6 +19,6 @@ app.use(passport.initialize());
 
 app.use('/api', router);
 
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 database.sync()
-    .then(()=> app.listen(PORT,() => {console.log(`Database synced and Server started running at https://127.0.0.1:${PORT}`)}));
+    .then(()=> app.listen(PORT,() => {console.log(`Database synced and Server started running at ${DOMAIN}`)}));

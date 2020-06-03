@@ -17,6 +17,7 @@ router.get('/getOrders', (req,res,next)=>{
 });
 
 router.post('/addOrder',(req,res,next) => {
+    
     const orderData = {...req.body.orderData};
 
     databaseHandler.addOrder(req.user.id, req.body.ingredients, req.body.price, new Date(), orderData)

@@ -27,7 +27,7 @@ export const purchaseBurger = (orderData, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
         // axios.post('/orders.json?auth=' + token,orderData)         //only for firebase.json it is added
-        axios.post('http://127.0.0.1:5500/api/orders/addOrder', orderData, {
+        axios.post('/orders/addOrder', orderData, {
             headers:{Authorization: `JWT ${token}`}
         })
         .then(response=>{
@@ -72,7 +72,7 @@ export const fetchOrders = (token, userId) => {
         const jwtToken = localStorage.getItem("token");
         // const queryParams = '?auth='+token+ '&orderBy="userId"&equalTo="'+ userId + '"';   //specific for firebase
         // axios.get('/orders.json'+ queryParams)
-        axios.get('http://127.0.0.1:5500/api/orders/getOrders',{
+        axios.get('/orders/getOrders',{
             headers:{Authorization: `JWT ${jwtToken}`}
         })
         .then(response => {

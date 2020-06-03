@@ -1,13 +1,29 @@
 const Sequelize = require('sequelize');
 
-const {DATABASE_USERNAME, DATABASE_PASSWORD } = require('../environments');
+const {DATABASE_HOST, DATABASE_NAME, DATABASE_USER, DATABASE_PORT, DATABASE_PASSWORD} = require('../environments');
 
-const database = new Sequelize("burgerBuilder", DATABASE_USERNAME ,DATABASE_PASSWORD ,{
-    host: 'localhost',
-    dialect: 'sqlite',
-    storage:'burgers.db',
-    logging:false
-});
+let database = null;
+
+var environment = process.env.NODE_ENV || 'development';
+console.log(process.env.NODE_ENV);
+
+if (environment === "production") {
+    database = new Sequelize(DATABASE_NAME, DATABASE_USER, DATABASE_PASSWORD, {
+        host: DATABASE_HOST,
+        port: DATABASE_PORT,
+        logging: false,
+        dialect: "postgres"
+    });
+} else {
+    database = new Sequelize("burgerBuilder", DATABASE_NAME ,DATABASE_PASSWORD ,{
+        host: 'localhost',
+        dialect: 'sqlite',
+        storage:'burgers.db',
+        logging:false
+    });
+}
+
+
 
 const Users = database.define('users',{
     email:{

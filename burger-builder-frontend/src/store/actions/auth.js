@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import axios from 'axios';
+import axios from '../../axios-order';
 
 export const authStart = () => {
     return{
@@ -43,11 +43,11 @@ export const auth = (email,password,isSignup) => {
         }
 
         // let url='https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
-        let url = 'http://127.0.0.1:5500/api/auth/signup';
+        let url = '/auth/signup';
         
         if(!isSignup){
             // url='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB9-WRhrIFJiJOk7_kPAv8DSIbQ4NwXhpA';
-            url="http://127.0.0.1:5500/api/auth/login";
+            url="/auth/login";
             axios.post(url, authData)
             .then((response) => {
                 // const expirationDate = new Date(new Date().getTime() + response.data.user.expirationTime * 1000);
